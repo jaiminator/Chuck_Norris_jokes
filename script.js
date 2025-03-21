@@ -4,6 +4,7 @@ btnJoke.addEventListener('click', getJoke);
 const listJokes = document.getElementById('listJokes');
 
 let arrayJokes = [];
+let numJoke = 0;
 
 // SI HAY CHISTES ALMACENADOS...
 if (localStorage.getItem('jokes')) {
@@ -15,13 +16,14 @@ if (localStorage.getItem('jokes')) {
     
         const deleteBox = document.createElement('button');
         deleteBox.setAttribute('class', 'btnDelete');
-        deleteBox.setAttribute('onclick', 'deleteJoke()');
+        deleteBox.setAttribute('onclick', 'deleteJoke('+numJoke+')');
         deleteBox.innerText = 'Delete';
 
         jokeBox.appendChild(deleteBox);
         listJokes.appendChild(jokeBox);
 
         arrayJokes.push(dataJoke);
+        numJoke++;
     });
 }
 
@@ -33,11 +35,12 @@ function createJokeCard(data){
 
     const deleteBox = document.createElement('button');
     deleteBox.setAttribute('class', 'btnDelete');
-    deleteBox.setAttribute('onclick', 'deleteJoke()');
+    deleteBox.setAttribute('onclick', 'deleteJoke('+numJoke+')');
     deleteBox.innerText = 'Delete';
 
     jokeBox.appendChild(deleteBox);
     listJokes.appendChild(jokeBox);
+    numJoke++;
 } 
 
 //OBTENEMOS UN CHISTE ALEATORIO DE LA API DE CHUCK NORRIS
@@ -53,6 +56,11 @@ function getJoke() {
 }
 
 //BORRAMOS EL CHISTE SEGÚN SU ÍNDICE DEL ARRAY DE CHISTES
-function deleteJoke() {
-    alert("DELETE DELETE!");
+function deleteJoke(idToDelete) {
+
+    arrayJokes = arrayJokes.filter((_, index) => index != idToDelete);
+    localStorage.setItem('jokes', JSON.stringify(arrayJokes));
+
+
+    console.log(arrayJokes);
 }
