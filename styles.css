@@ -3,6 +3,10 @@ body {
     background-color: aliceblue;
     text-align: center;
 }
+.main-container{
+    width: 60%;
+    margin: auto;
+}
 .btnJoke {
     background-color: dodgerblue;
     color: white;
